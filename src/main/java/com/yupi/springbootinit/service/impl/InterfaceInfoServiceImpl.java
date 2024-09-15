@@ -230,22 +230,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
             }
             UserVO userVO = userService.getUserVO(user);
             interfaceInfoVO.setUser(userVO);
-//            // 2. 已登录，获取用户点赞、收藏状态
-//            User loginUser = userService.getLoginUserPermitNull(request);
-//            if (loginUser != null) {
-//                // 获取点赞
-//                QueryWrapper<InterfaceInfoThumb> interfaceInfoThumbQueryWrapper = new QueryWrapper<>();
-//                interfaceInfoThumbQueryWrapper.in("interfaceInfoId", interfaceInfoId);
-//                interfaceInfoThumbQueryWrapper.eq("userId", loginUser.getId());
-//                InterfaceInfoThumb interfaceInfoThumb = interfaceInfoThumbMapper.selectOne(interfaceInfoThumbQueryWrapper);
-//                interfaceInfoVO.setHasThumb(interfaceInfoThumb != null);
-//                // 获取收藏
-//                QueryWrapper<InterfaceInfoFavour> interfaceInfoFavourQueryWrapper = new QueryWrapper<>();
-//                interfaceInfoFavourQueryWrapper.in("interfaceInfoId", interfaceInfoId);
-//                interfaceInfoFavourQueryWrapper.eq("userId", loginUser.getId());
-//                InterfaceInfoFavour interfaceInfoFavour = interfaceInfoFavourMapper.selectOne(interfaceInfoFavourQueryWrapper);
-//                interfaceInfoVO.setHasFavour(interfaceInfoFavour != null);
-//            }
+
             return interfaceInfoVO;
         
     }
@@ -267,18 +252,6 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         if (loginUser != null) {
             Set<Long> interfaceInfoIdSet = interfaceInfoList.stream().map(InterfaceInfo::getId).collect(Collectors.toSet());
             loginUser = userService.getLoginUser(request);
-//            // 获取点赞
-//            QueryWrapper<InterfaceInfoThumb> interfaceInfoThumbQueryWrapper = new QueryWrapper<>();
-//            interfaceInfoThumbQueryWrapper.in("interfaceInfoId", interfaceInfoIdSet);
-//            interfaceInfoThumbQueryWrapper.eq("userId", loginUser.getId());
-//            List<InterfaceInfoThumb> interfaceInfoInterfaceInfoThumbList = interfaceInfoThumbMapper.selectList(interfaceInfoThumbQueryWrapper);
-//            interfaceInfoInterfaceInfoThumbList.forEach(interfaceInfoInterfaceInfoThumb -> interfaceInfoIdHasThumbMap.put(interfaceInfoInterfaceInfoThumb.getInterfaceInfoId(), true));
-//            // 获取收藏
-//            QueryWrapper<InterfaceInfoFavour> interfaceInfoFavourQueryWrapper = new QueryWrapper<>();
-//            interfaceInfoFavourQueryWrapper.in("interfaceInfoId", interfaceInfoIdSet);
-//            interfaceInfoFavourQueryWrapper.eq("userId", loginUser.getId());
-//            List<InterfaceInfoFavour> interfaceInfoFavourList = interfaceInfoFavourMapper.selectList(interfaceInfoFavourQueryWrapper);
-//            interfaceInfoFavourList.forEach(interfaceInfoFavour -> interfaceInfoIdHasFavourMap.put(interfaceInfoFavour.getInterfaceInfoId(), true));
         }
         // 填充信息
         List<InterfaceInfoVO> interfaceInfoVOList = interfaceInfoList.stream().map(interfaceInfo -> {
